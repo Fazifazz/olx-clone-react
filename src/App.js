@@ -11,7 +11,7 @@ import Create from "./Pages/Create";
 import ViewPost from "./Pages/ViewPost";
 
 function App() {
-  const { setUser } = useContext(AuthContext);
+  const { user,setUser } = useContext(AuthContext);
   const { auth } = useContext(FireBaseContext);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/" Component={Home} />
           <Route exact path="/signup" Component={Signup} />
           <Route exact path="/login" Component={Login} />
-          <Route exact path="/create" Component={Create} />
+          <Route exact path="/create" Component={user?Create:Login} />
           <Route exact path="/viewPost" Component={ViewPost} />
         </Routes>
       </Post>

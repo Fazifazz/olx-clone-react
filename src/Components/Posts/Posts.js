@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 function Posts() {
   const [products, setProducts] = useState([]);
   const { db } = useContext(FireBaseContext);
-  const {setPostDetails} = useContext(postContext)
-  const navigate = useNavigate()
+  const { setPostDetails } = useContext(postContext);
+  const navigate = useNavigate();
   useEffect(() => {
     getDocs(collection(db, "products")).then((data) => {
       const allPost = data.docs.map((product) => {
@@ -33,15 +33,19 @@ function Posts() {
         <div className="cards">
           {products.map((product) => {
             return (
-              <div onClick={()=>{
-                setPostDetails(product)
-                navigate('/viewPost')
-                }} className="card">
+              <div className="card">
                 <div className="favorite">
                   <Heart></Heart>
                 </div>
                 <div className="image">
-                  <img src={product.url} alt="" />
+                  <img
+                    onClick={() => {
+                      setPostDetails(product);
+                      navigate("/viewPost");
+                    }}
+                    src={product.url}
+                    alt="postImage"
+                  />
                 </div>
                 <div className="content">
                   <p className="rate">&#x20B9; {product.price}</p>
@@ -56,7 +60,6 @@ function Posts() {
           })}
         </div>
       </div>
-   
     </div>
   );
 }
